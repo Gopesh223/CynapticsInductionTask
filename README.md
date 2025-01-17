@@ -61,17 +61,31 @@ This is an image classification program built with PyTorch. The program classifi
 
 The CNN model architecture is detailed below;
 
-| Layer Type       | Parameters                     | Input Shape         | Output Shape         |
-|-------------------|--------------------------------|---------------------|----------------------|
-| Conv2d           | `3 → 12`, kernel size: `5x5`  | `(3, 200, 200)`     | `(12, 196, 196)`     |
-| MaxPool2d        | kernel size: `2x2`, stride: 2  | `(12, 196, 196)`    | `(12, 98, 98)`       |
-| Conv2d           | `12 → 24`, kernel size: `5x5` | `(12, 98, 98)`      | `(24, 94, 94)`       |
-| MaxPool2d        | kernel size: `2x2`, stride: 2  | `(24, 94, 94)`      | `(24, 47, 47)`       |
-| Flatten          | -                              | `(24, 47, 47)`      | `(24 * 47 * 47)`     |
-| Linear (fc1)     | `24*47*47 → 512`              | `(24 * 47 * 47)`    | `(512)`              |
-| Linear (fc2)     | `512 → 128`                   | `(512)`             | `(128)`              |
-| Linear (fc3)     | `128 → 2`                     | `(128)`             | `(2)`                |
+| **Layer Type**     | **Input Dimensions** | **Output Dimensions** | **Kernel Size** | **Activation** |
+|--------------------|----------------------|-----------------------|-----------------|----------------|
+| Convolutional 1    | 3x200x200           | 12x196x196            | 5x5             | ReLU           |
+| Max Pooling        | 12x196x196          | 12x98x98              | 2x2             | -              |
+| Convolutional 2    | 12x98x98            | 24x94x94              | 5x5             | ReLU           |
+| Max Pooling        | 24x94x94            | 24x47x47              | 2x2             | -              |
+| Convolutional 3    | 24x47x47            | 48x43x43              | 5x5             | ReLU           |
+| Max Pooling        | 48x43x43            | 48x21x21              | 2x2             | -              |
+| Convolutional 4    | 48x21x21            | 96x17x17              | 5x5             | ReLU           |
+| Max Pooling        | 96x17x17            | 96x8x8                | 2x2             | -              |
+| Flatten            | 96x8x8              | 6144                  | -               | -              |
+| Fully Connected 1  | 6144                | 2000                  | -               | ReLU           |
+| Fully Connected 2  | 2000                | 1000                  | -               | ReLU           |
+| Fully Connected 3  | 1000                | 500                   | -               | ReLU           |
+| Fully Connected 4  | 500                 | 256                   | -               | ReLU           |
+| Fully Connected 5  | 256                 | 64                    | -               | ReLU           |
+| Fully Connected 6  | 64                  | 16                    | -               | ReLU           |
+| Output Layer       | 16                  | 2                     | -               | -              |
 
+### Notes:
+1. The model uses **ReLU** activation for all intermediate layers except for the output layer.
+2. The final output layer has 2 neurons, representing the two classes: "AI" and "Real."
+3. Pooling operations reduce the spatial dimensions of the data after each convolutional layer.
+
+This network is designed for classification tasks on 200x200 RGB images.
 - **Conv2d**: Applying 2D convolution on input images.
 - **MaxPool2d**: Reducing the spatial dimensions using max pooling.
 - **Flatten**: Converting the 3D tensor to a 1D vector for fully connected layers.
