@@ -6,22 +6,21 @@
  - [AI vs Real Image Classifier](#AI-vs-Real)
  - [GAN](#GAN)
 
-## AI vs Real
-This is an image classification program built with PyTorch. The program classifies images into two classes: AI and Real. The training of the convolutional neural network (CNN) on labeled training data is performed, along with generating predictions on test data.
 ## Requirements
 Ensure you have the following installed on your system:
 
-PyTorch
+ - PyTorch
 
-torchvision
+ - torchvision
 
-NumPy
+ - NumPy
 
-Pillow (PIL)
+ - Pillow (PIL)
 
-CUDA (if using a GPU)
+ - CUDA (if using a GPU)
 
-
+## AI vs Real
+This is an image classification program built with PyTorch. The program classifies images into two classes: AI and Real. The training of the convolutional neural network (CNN) on labeled training data is performed, along with generating predictions on test data.
 
 ## Program Workflow
 1. **Dataset Preparation**
