@@ -24,23 +24,40 @@ CUDA (if using a GPU)
 
 
 ## Program Workflow
-1)Defining the dataset transformations by resizing the images, normalizing them, and converting them to tensors.
+1. **Dataset Preparation**
+   - Transforming the images by:
+     - Resizing them to 200x200.
+     - Converting them to tensors.
+     - Normalizing to [-1, 1].
+   - Loading training data from `data/Train/` using `ImageFolder`.
 
-2)Loading the training data by using torchvision.datasets.ImageFolder to load training images.
+2. **Neural Network Architecture**
+   - Defining the CNN architecture by:
+     - 4 convolutional layers.
+     - Max-pooling after each convolution.
+     - Flatten layer followed by 7 fully connected layers.
+     - Output layer for 2 classes ("AI" or "Real").
 
-3)Defining the Neural Network which is a custom CNN with convolutional, pooling, and fully connected layers.
+4. **Training Process**
+   - Loss Functionn used is Cross-Entropy Loss.
+   - Optimizer used is Adam with learning rate `0.001` and weight decay `1e-5`.
+   - For 15 epochs:
+     - It performs forward pass to compute predictions.
+     - It computes and backpropagates loss.
+     - Also, it updates the model weights using the optimizer.
+     - Further, it calculates the epoch loss and accuracy.
 
-4)Training the Model by forward propagation, computing the loss using CrossEntropyLoss and then optimizing the weights using Adam Optimizer.
+5. **Saving the Trained Model**
+   - Save the model’s state dictionary to `trained_net.pth`.
 
-Note:- I earlier used SGD which took me 50 epochs to give an accuracy that Adam did in 15 epochs.
+6. **Loading and Evaluating the Model**
+   - We reload the model from the saved state dictionary.
+   - Then we switch the model to evaluation mode for inference.
 
-5)Saving the trained model so that it can be used in future.
-
-6)Loading the test images
-
-7)Making predictions based on the test labels using the trained model by classifying the test images into the appropriate classes.
-
-8)Saving the predictions to a CSV file.
+7. **Prediction on Test Data**
+   - We load test images from `data/Test/`.
+   - Then we preprocess the images and run predictions through the model.
+   - Finally, we save the predictions (`Id`, `Label`) to `predictions.csv`..
 ## Model Architecture
 
 The CNN model architecture is detailed below;
